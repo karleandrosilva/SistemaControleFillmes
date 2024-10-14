@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -5,6 +6,9 @@ public class App {
 
     static Scanner teclado = new Scanner(System.in); // entrada de dados (input)
     static HashMap<String, Usuario> usuarios = new HashMap<>(); //  Mapa para armazenar os usuários cadastrados (nome de usuário -> Usuario)
+    static ArrayList<Filme> filmes = new ArrayList<>();
+    static ArrayList<Ator> atores = new ArrayList<>();
+    static ArrayList<Diretor> diretores = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean continuar = true;
@@ -106,9 +110,10 @@ public class App {
         Usuario usuarioLogado = usuarios.get(usuario);
         
         if (usuarioLogado.getSenha().equals(senha)) {
-            System.out.println("Login realizado com sucesso! Bem-vindo, " + usuario + "!");
+            System.out.println("\nLogin realizado com sucesso! Bem-vindo, " + usuario + "!");
             if (usuarioLogado instanceof Administrador) {
-                menuAdministrador();
+                Administrador adminLogado = (Administrador) usuarioLogado;
+                menuAdministrador(adminLogado); // Passando a instância correta
             } else {
                 menuUsuarioComum(usuarioLogado);
             }
@@ -118,8 +123,57 @@ public class App {
         }
     }
 
-    public static void menuAdministrador() {
-        System.err.println("ADM");
+    public static void menuAdministrador(Administrador adminLogado) {
+        System.out.println("\n--- MENU ADMINISTRADOR ---");
+        System.out.print("[1] - Cadastrar Filme\n"
+                + "[2] - Cadastrar Ator\n"
+                + "[3] - Cadastrar Diretor\n"
+                + "[4] - Listar Filmes\n"
+                + "[5] - Listar Atores\n"
+                + "[6] - Listar Diretores\n"
+                + "[7] - Remover Filme\n"
+                + "[8] - Remover Ator\n"
+                + "[9] - Remover Diretor\n"
+                + "[10] - Sair\nRESPOSTA: ");
+
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+
+        switch (opcao) {
+            case 1:
+                adminLogado.cadastrarFilme(filmes);
+                break;
+            case 2:
+                adminLogado.cadastrarAtor(atores);
+                break;
+            case 3:
+                adminLogado.cadastrarDiretor(diretores);
+                break;
+            case 4:
+                adminLogado.listarFilmes(filmes);
+                break;
+            case 5:
+                adminLogado.listarAtores(atores);
+                break;
+            case 6:
+                adminLogado.listarDiretores(diretores);
+                break;
+            case 7:
+                adminLogado.removerFilme(filmes);
+                break;
+            case 8:
+                adminLogado.removerAtor(atores);
+                break;
+            case 9:
+                adminLogado.removerDiretor(diretores);
+                break;
+            case 10:
+                telaLogin();
+                break;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!");
+        }
+
     }
 
     public static void menuUsuarioComum(Usuario usuarioLogado) {
