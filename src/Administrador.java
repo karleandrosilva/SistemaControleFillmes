@@ -1,13 +1,25 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Administrador extends Usuario{
+public class Administrador {
+
+    private String nomeUsuario;
+    private String senha;
 
     public Administrador(String nomeUsuario, String senha) {
-        super(nomeUsuario, senha);
+        this.nomeUsuario = nomeUsuario;
+        this.senha = senha;
     }
 
-    public void cadastrarFilme(ArrayList<Filme> filmes) {
+    String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public static void cadastrarFilme(ArrayList<Filme> filmes) {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Nome do filme: ");
         String titulo = teclado.nextLine();
@@ -19,10 +31,10 @@ public class Administrador extends Usuario{
         Filme novoFilme = new Filme(titulo, duracao, anoLancamento); // Cria uma nova instância do filme com os dados fornecidos
         filmes.add(novoFilme); // Adiciona o filme à lista de filmes
         System.out.println("\nFilme cadastrado com sucesso: " + titulo + " (" + anoLancamento + ")");
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void cadastrarAtor(ArrayList<Ator> atores) {
+    public static void cadastrarAtor(ArrayList<Ator> atores) {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Nome do ator: ");
         String nome = teclado.nextLine();
@@ -30,10 +42,10 @@ public class Administrador extends Usuario{
         String dataNascimento = teclado.nextLine();
         atores.add(new Ator(nome, dataNascimento));
         System.out.println("\nAtor cadastrado com sucesso: " + nome + "- (" + dataNascimento + ")");
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void cadastrarDiretor(ArrayList<Diretor> diretores) {
+    public static void cadastrarDiretor(ArrayList<Diretor> diretores) {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Nome do diretor: ");
         String nome = teclado.nextLine();
@@ -41,10 +53,10 @@ public class Administrador extends Usuario{
         String dataNascimento = teclado.nextLine();
         diretores.add(new Diretor(nome, dataNascimento));
         System.out.println("\nDiretor cadastrado com sucesso: " + nome + " - (" + dataNascimento + ")");
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void listarFilmes(ArrayList<Filme> filmes) {
+    public static void listarFilmes(ArrayList<Filme> filmes) {
         if (filmes.isEmpty()) {
             System.out.println("\nNenhum filme cadastrado.");
         } else {
@@ -53,10 +65,10 @@ public class Administrador extends Usuario{
                 System.out.println("- " + filme.getTitulo() + " (" + filme.getAnoLancamento() + ")");
             }
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void listarAtores(ArrayList<Ator> atores) {
+    public static void listarAtores(ArrayList<Ator> atores) {
         if (atores.isEmpty()) {
             System.out.println("\nNenhum ator cadastrado.");
         } else {
@@ -65,10 +77,10 @@ public class Administrador extends Usuario{
                 System.out.println("- " + ator.getNome() + " (Nascido em: " + ator.getDataNascimento() + ")");
             }
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void listarDiretores(ArrayList<Diretor> diretores) {
+    public static void listarDiretores(ArrayList<Diretor> diretores) {
         if (diretores.isEmpty()) {
             System.out.println("\nNenhum diretor cadastrado.");
         } else {
@@ -77,10 +89,10 @@ public class Administrador extends Usuario{
                 System.out.println("- " + diretor.getNome() + " (Nascido em: " + diretor.getDataNascimento() + ")");
             }
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void removerFilme(ArrayList<Filme> filmes) {
+    public static void removerFilme(ArrayList<Filme> filmes) {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");
         } else {
@@ -100,10 +112,10 @@ public class Administrador extends Usuario{
                 removerFilme(filmes);
             }
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void removerAtor(ArrayList<Ator> atores) {
+    public static void removerAtor(ArrayList<Ator> atores) {
         if (!atores.isEmpty()) {
             Scanner teclado = new Scanner(System.in);
             System.out.print("Informe o nome do ator a ser removido: ");
@@ -111,10 +123,10 @@ public class Administrador extends Usuario{
             atores.removeIf(ator -> ator.getNome().equalsIgnoreCase(nome));
             System.out.println("\nAtor: " + nome + " removido com sucesso!");
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }
 
-    public void removerDiretor(ArrayList<Diretor> diretores) {
+    public static void removerDiretor(ArrayList<Diretor> diretores) {
         if (!diretores.isEmpty()) {
             Scanner teclado = new Scanner(System.in);
             System.out.print("Informe o nome do diretor a ser removido: ");
@@ -122,6 +134,6 @@ public class Administrador extends Usuario{
             diretores.removeIf(diretor -> diretor.getNome().equalsIgnoreCase(nome));
             System.out.println("\n Diretor: " + nome + " removido com sucesso!");
         }
-        App.menuAdministrador(this);
+        App.menuAdministrador();
     }    
 }

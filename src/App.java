@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class App {
 
     static Scanner teclado = new Scanner(System.in); // entrada de dados (input)
-    static HashMap<String, Usuario> usuarios = new HashMap<>(); //  Mapa para armazenar os usuários cadastrados (nome de usuário -> Usuario)
+    static HashMap<String, Usuario> usuarios = new HashMap<>(); // Mapa para armazenar os usuários comuns
+    static HashMap<String, Administrador> administradores = new HashMap<>(); // Mapa para armazenar os administradores
     static ArrayList<Filme> filmes = new ArrayList<>();
     static ArrayList<Ator> atores = new ArrayList<>();
     static ArrayList<Diretor> diretores = new ArrayList<>();
@@ -32,7 +33,7 @@ public class App {
     }
 
     static void telaLogin() {
-        System.out.print("SEJA BEM VINDO! AO SISTEMA DE CONTROLE DE FILMES");
+        System.out.print("\nSEJA BEM VINDO! AO SISTEMA DE CONTROLE DE FILMES");
         System.out.print("\nEscolha uma das opções abaixo:\n"
                     + "[1] - CRIAR CADASTRO\n"
                     + "[2] - FAZER LOGIN\nRESPOSTA: "); 
@@ -71,59 +72,74 @@ public class App {
     public static void cadastro(){
         System.out.println("\n--- CADASTRO DE USUÁRIO ---");
         System.out.print("Informe seu nome de usuário: ");
-        String usuario = teclado.nextLine();
+        String nomeUsuario = teclado.nextLine();
 
-        if (usuarios.containsKey(usuario)) {
+        if (usuarios.containsKey(nomeUsuario) || administradores.containsKey(nomeUsuario)) {
             System.out.println("\nUsuário já cadastrado! Tente outro nome de usuário.");
             cadastro();
-        }
-
-        System.out.print("Informe sua senha: ");
-        String senha = teclado.nextLine();
-
-        System.out.print("Você será um administrador? (S/N): ");
-        String resposta = teclado.nextLine();
-
-        if (resposta.equalsIgnoreCase("S")) {
-            usuarios.put(usuario, new Administrador(usuario, senha));
-            System.out.println("Administrador cadastrado com sucesso!");
         } else {
-            usuarios.put(usuario, new Usuario(usuario, senha));
-            System.out.println("Usuário cadastrado com sucesso!");
-        }
+            System.out.print("Informe sua senha: ");
+            String senha = teclado.nextLine();
 
+            System.out.print("Você será um administrador? (S/N): ");
+            String resposta = teclado.nextLine();
+
+            if (resposta.equalsIgnoreCase("S")) {
+                administradores.put(nomeUsuario, new Administrador(nomeUsuario, senha));
+                System.out.println("Administrador cadastrado com sucesso!");
+            } else {
+                usuarios.put(nomeUsuario, new Usuario(nomeUsuario, senha));
+                System.out.println("Usuário cadastrado com sucesso!");
+            }
+        }
+        
         login();
     }
 
     public static void login(){
         System.out.println("\n--- LOGIN ---");
         System.out.print("Informe seu nome de usuário: ");
-        String usuario = teclado.nextLine();
+        String nomeUsuario = teclado.nextLine();
 
-        if (!usuarios.containsKey(usuario)) {
+        if (administradores.containsKey(nomeUsuario)) { //Login para administrador
+            Administrador adminLogado = administradores.get(nomeUsuario);
+            realizarLoginAdmin(adminLogado);
+        } else if (usuarios.containsKey(nomeUsuario)) { // Login para usuário comum
+            Usuario usuarioLogado = usuarios.get(nomeUsuario);
+            realizarLoginUsuario(usuarioLogado);
+        } else {
             System.out.println("\nUsuário não encontrado! Faça o cadastro primeiro.");
             cadastro();
-        } else {
-            System.out.print("Informe sua senha: ");  
         }
-        String senha = teclado.nextLine();  
-        Usuario usuarioLogado = usuarios.get(usuario);
-        
-        if (usuarioLogado.getSenha().equals(senha)) {
-            System.out.println("\nLogin realizado com sucesso! Bem-vindo, " + usuario + "!");
-            if (usuarioLogado instanceof Administrador) {
-                Administrador adminLogado = (Administrador) usuarioLogado;
-                menuAdministrador(adminLogado); // Passando a instância correta
-            } else {
-                menuUsuarioComum(usuarioLogado);
-            }
+    }
+
+    public static void realizarLoginAdmin(Administrador admin) {
+        System.out.print("Informe sua senha: ");
+        String senha = teclado.nextLine();
+
+        if (admin.getSenha().equals(senha)) {
+            System.out.println("\nLogin realizado com sucesso! Bem-vindo, Administrador " + admin.getNomeUsuario() + "!");
+            menuAdministrador();
         } else {
             System.out.println("\nSenha incorreta. Tente novamente.");
             login();
         }
     }
 
-    public static void menuAdministrador(Administrador adminLogado) {
+    public static void realizarLoginUsuario(Usuario usuario) {
+        System.out.print("Informe sua senha: ");
+        String senha = teclado.nextLine();
+
+        if (usuario.getSenha().equals(senha)) {
+            System.out.println("\nLogin realizado com sucesso! Bem-vindo, " + usuario.getNomeUsuario() + "!");
+            menuUsuarioComum(usuario);
+        } else {
+            System.out.println("\nSenha incorreta. Tente novamente.");
+            login();
+        }
+    }
+
+    public static void menuAdministrador() {
         System.out.println("\n--- MENU ADMINISTRADOR ---");
         System.out.print("[1] - Cadastrar Filme\n"
                 + "[2] - Cadastrar Ator\n"
@@ -141,31 +157,31 @@ public class App {
 
         switch (opcao) {
             case 1:
-                adminLogado.cadastrarFilme(filmes);
+                Administrador.cadastrarFilme(filmes);
                 break;
             case 2:
-                adminLogado.cadastrarAtor(atores);
+                Administrador.cadastrarAtor(atores);
                 break;
             case 3:
-                adminLogado.cadastrarDiretor(diretores);
+                Administrador.cadastrarDiretor(diretores);
                 break;
             case 4:
-                adminLogado.listarFilmes(filmes);
+                Administrador.listarFilmes(filmes);
                 break;
             case 5:
-                adminLogado.listarAtores(atores);
+                Administrador.listarAtores(atores);
                 break;
             case 6:
-                adminLogado.listarDiretores(diretores);
+                Administrador.listarDiretores(diretores);
                 break;
             case 7:
-                adminLogado.removerFilme(filmes);
+                Administrador.removerFilme(filmes);
                 break;
             case 8:
-                adminLogado.removerAtor(atores);
+                Administrador.removerAtor(atores);
                 break;
             case 9:
-                adminLogado.removerDiretor(diretores);
+                Administrador.removerDiretor(diretores);
                 break;
             case 10:
                 telaLogin();
