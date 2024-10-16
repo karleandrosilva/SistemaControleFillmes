@@ -1,16 +1,21 @@
+// Enum Gênero
+enum Genero {
+    Acao, Comédia, Drama, Fantasia, Terror, Suspense, Romance, Animacao;
+}
 
 public class Filme {
     private String titulo;
     private int duracao;
     private int anoLancamento;
-    private int genero;
+    private Genero genero;
     //private ArrayList atores;
     //private ArrayList diretores;
 
-    public Filme(String titulo, int duracao, int anoLancamento) {
+    public Filme(String titulo, int duracao, int anoLancamento, Genero genero) {
         this.titulo = titulo;
         this.duracao = duracao;
         this.anoLancamento = anoLancamento;
+        this.genero = genero;
     }
 
     // public Filme(String titulo, int anoLancamento, int duracao) {
@@ -21,7 +26,6 @@ public class Filme {
     //     //this.atores = atores;
     //     //this.diretores = diretores;
     // }
-
 
     public String getTitulo() {
         return titulo;
@@ -47,11 +51,11 @@ public class Filme {
         this.anoLancamento = anoLancamento;
     }
 
-    public int getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(int genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -70,5 +74,6 @@ public class Filme {
     public void setDiretores(ArrayList diretores) {
         this.diretores = diretores;
     } */
+
 
 }

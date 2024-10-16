@@ -12,12 +12,13 @@ public class App {
     static ArrayList<Diretor> diretores = new ArrayList<>();
 
     public static void main(String[] args) {
+        inicializarFilmes();
         boolean continuar = true;
 
         while (continuar) { // Loop principal
             telaLogin();
 
-            System.out.println("Deseja continuar usando o programa? [S/N]: ");
+            System.out.print("Deseja continuar usando o programa? [S/N]: ");
             String respostaContinuar = teclado.nextLine();
             if (respostaContinuar.equalsIgnoreCase("N")) {
                 continuar = false;
@@ -29,7 +30,12 @@ public class App {
         System.out.println("Programa encerrado. Até mais!");
         teclado.close();
         System.exit(0); // Encerra o programa
+    }
 
+    public static void inicializarFilmes() {
+        filmes.add(new Filme("Interestelar", 169, 2014, Genero.Fantasia));
+        filmes.add(new Filme("As Branquelas", 109, 2004, Genero.Comédia));
+        filmes.add(new Filme("Titanic", 194, 1997, Genero.Romance));
     }
 
     static void telaLogin() {
@@ -132,7 +138,7 @@ public class App {
 
         if (usuario.getSenha().equals(senha)) {
             System.out.println("\nLogin realizado com sucesso! Bem-vindo, " + usuario.getNomeUsuario() + "!");
-            menuUsuarioComum(usuario);
+            menuUsuario();
         } else {
             System.out.println("\nSenha incorreta. Tente novamente.");
             login();
@@ -188,11 +194,60 @@ public class App {
                 break;
             default:
                 System.out.println("OPÇÃO INVÁLIDA!");
+                menuAdministrador();
         }
-
     }
 
-    public static void menuUsuarioComum(Usuario usuarioLogado) {
-        System.err.println("USUARIO COMUM");
+    public static void menuUsuario() {
+        System.out.println("\n--- MENU USUÁRIO ---");
+        System.out.print("[1] - Adicionar Filme Favorito\n"
+                + "[2] - Adicionar Ator Favorito\n"
+                + "[3] - Adicionar Diretor Favorito\n"
+                + "[4] - Ver Filmes Favoritos\n"
+                + "[5] - Ver Atores Favoritos\n"
+                + "[6] - Ver Diretores Favoritos\n"
+                + "[7] - Remover Filme Favorito\n"
+                + "[8] - Remover Ator Favorito\n"
+                + "[9] - Remover Diretor Favorito\n"
+                + "[10] - Sair\nRESPOSTA: ");
+
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+
+        switch (opcao) {
+            case 1:
+                Usuario.adicionarFilmeFavorito(filmes);
+                break;
+            case 2:
+                Usuario.adicionarAtorFavorito(atores);
+                break;
+            case 3:
+                Usuario.adicionarDiretorFavorito(diretores);
+                break;
+            case 4:
+                Usuario.verFilmesFavoritos(filmes);
+                break;
+            case 5:
+                Usuario.verAtoresFavoritos(atores);
+                break;
+            case 6:
+                Usuario.verDiretoresFavoritos(diretores);
+                break;
+            case 7:
+                Usuario.removerFilmeFavorito(filmes);
+                break;
+            case 8:
+                Usuario.removerAtorFavorito(atores);
+                break;
+            case 9:
+                Usuario.removerDiretorFavorito(diretores);
+                break;
+            case 10:
+                telaLogin();
+                break;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!");
+                menuUsuario();
+        }
     }
 }

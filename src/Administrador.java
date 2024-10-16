@@ -23,12 +23,17 @@ public class Administrador {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Nome do filme: ");
         String titulo = teclado.nextLine();
+
         System.out.print("Duração (minutos): ");
         int duracao = teclado.nextInt();
+
         System.out.print("Ano de lançamento: ");
         int anoLancamento = teclado.nextInt();
-        teclado.nextLine();
-        Filme novoFilme = new Filme(titulo, duracao, anoLancamento); // Cria uma nova instância do filme com os dados fornecidos
+
+        System.out.print("Escolha o gênero (0-Ação, 1-Comédia, 2-Drama, 3-Fantasia, 4-Terror, 5-Suspense, 6-Romance, 7-Animação): ");
+        int generoEscolhido = teclado.nextInt();
+        Genero genero = Genero.values()[generoEscolhido];
+        Filme novoFilme = new Filme(titulo, duracao, anoLancamento, genero); // Cria uma nova instância do filme com os dados fornecidos
         filmes.add(novoFilme); // Adiciona o filme à lista de filmes
         System.out.println("\nFilme cadastrado com sucesso: " + titulo + " (" + anoLancamento + ")");
         App.menuAdministrador();
@@ -41,7 +46,7 @@ public class Administrador {
         System.out.print("Data de nascimento (dd/MM/yyyy): ");
         String dataNascimento = teclado.nextLine();
         atores.add(new Ator(nome, dataNascimento));
-        System.out.println("\nAtor cadastrado com sucesso: " + nome + "- (" + dataNascimento + ")");
+        System.out.println("\nAtor cadastrado com sucesso: " + nome + " - (" + dataNascimento + ")");
         App.menuAdministrador();
     }
 
