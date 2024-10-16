@@ -211,4 +211,8 @@ public class Usuario {
         }
         App.menuUsuario();
     }
+
+    void setSenha(String novaSenha) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
