@@ -22,6 +22,10 @@ public class Usuario {
         return senha;
     }
 
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public static void adicionarFilmeFavorito(ArrayList<Filme> filmes) {
         System.out.println("\n--- FILMES CADASTRADOS ---");
             for (int i = 0; i < filmes.size(); i++) {
@@ -210,9 +214,5 @@ public class Usuario {
             removerDiretorFavorito(diretoresFavoritos); 
         }
         App.menuUsuario();
-    }
-
-    void setSenha(String novaSenha) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

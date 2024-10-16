@@ -171,7 +171,7 @@ public class App {
                 excluirDados();
                 break;
             case 5:
-                editarPerfil();
+                editarPerfilAdm();
                 break;
             case 6:
                 telaLogin();
@@ -182,8 +182,8 @@ public class App {
         }
     }
 
-    public static void editarPerfil() {
-        System.out.println("Deseja mudar a sua senha (S/N): ");
+    public static void editarPerfilAdm() {
+        System.out.print("Deseja mudar a sua senha (S/N): ");
         String resposta = teclado.nextLine();
         if (resposta.equalsIgnoreCase("S")) {
             System.out.println("\n--- ALTERAÇÃO DE SENHA ---");
@@ -306,56 +306,24 @@ public class App {
 
     public static void menuUsuario() {
         System.out.println("\n--- MENU USUÁRIO ---");
-        System.out.print("[1] - Cadastrar Dados\n"
-                + "[2] - Listar Dados\n"
-                + "[3] - Editar Dados\n"
-                + "[4] - Excluir Dados\n"
-                + "[5] - Editar Perfil\n"
-                + "[6] - Sair\nRESPOSTA: ");
-
-                // System.out.print("[1] - Adicionar Filme Favorito\n"
-                // + "[2] - Adicionar Ator Favorito\n"
-                // + "[3] - Adicionar Diretor Favorito\n"
-                // + "[4] - Ver Filmes Favoritos\n"
-                // + "[5] - Ver Atores Favoritos\n"
-                // + "[6] - Ver Diretores Favoritos\n"
-                // + "[7] - Remover Filme Favorito\n"
-                // + "[8] - Remover Ator Favorito\n"
-                // + "[9] - Remover Diretor Favorito\n"
-                // + "[10] - Sair\nRESPOSTA: ");
-
+        System.out.print("[1] - Buscar Dados\n"
+                + "[2] - Favoritos\n"
+                + "[3] - Editar Perfil\n"
+                + "[4] - Sair\nRESPOSTA: ");
         int opcao = teclado.nextInt();
         teclado.nextLine();
 
         switch (opcao) {
             case 1:
-                Usuario.adicionarFilmeFavorito(filmes);
+                buscarDados();
                 break;
             case 2:
-                Usuario.adicionarAtorFavorito(atores);
+                Favoritos();
                 break;
             case 3:
-                Usuario.adicionarDiretorFavorito(diretores);
+                editarPerfil();
                 break;
             case 4:
-                Usuario.verFilmesFavoritos(filmes);
-                break;
-            case 5:
-                Usuario.verAtoresFavoritos(atores);
-                break;
-            case 6:
-                Usuario.verDiretoresFavoritos(diretores);
-                break;
-            case 7:
-                Usuario.removerFilmeFavorito(filmes);
-                break;
-            case 8:
-                Usuario.removerAtorFavorito(atores);
-                break;
-            case 9:
-                Usuario.removerDiretorFavorito(diretores);
-                break;
-            case 10:
                 telaLogin();
                 break;
             default:
@@ -364,4 +332,101 @@ public class App {
         }
     }
 
+    private static void buscarDados() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public static void Favoritos(){
+        System.out.println("\n--- FAVORITOS ---");
+        System.out.print("[1] - Adicionar Filme Favorito\n"
+                + "[2] - Adicionar Ator Favorito\n"
+                + "[3] - Adicionar Diretor Favorito\n"
+                + "[4] - Ver Filmes Favoritos\n"
+                + "[5] - Ver Atores Favoritos\n"
+                + "[6] - Ver Diretores Favoritos\n"
+                + "[7] - Remover Filme Favorito\n"
+                + "[8] - Remover Ator Favorito\n"
+                + "[9] - Remover Diretor Favorito\n"
+                + "[10] - Sair\nRESPOSTA: ");
+
+            int opcao = teclado.nextInt();
+            teclado.nextLine();
+    
+            switch (opcao) {
+                case 1:
+                    Usuario.adicionarFilmeFavorito(filmes);
+                    break;
+                case 2:
+                    Usuario.adicionarAtorFavorito(atores);
+                    break;
+                case 3:
+                    Usuario.adicionarDiretorFavorito(diretores);
+                    break;
+                case 4:
+                    Usuario.verFilmesFavoritos(filmes);
+                    break;
+                case 5:
+                    Usuario.verAtoresFavoritos(atores);
+                    break;
+                case 6:
+                    Usuario.verDiretoresFavoritos(diretores);
+                    break;
+                case 7:
+                    Usuario.removerFilmeFavorito(filmes);
+                    break;
+                case 8:
+                    Usuario.removerAtorFavorito(atores);
+                    break;
+                case 9:
+                    Usuario.removerDiretorFavorito(diretores);
+                    break;
+                case 10:
+                    menuUsuario();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA!");
+                    menuUsuario();
+            }
+    }
+
+    public static void editarPerfil() {
+        System.out.print("Deseja mudar a sua senha (S/N): ");
+        String resposta = teclado.nextLine();
+        if (resposta.equalsIgnoreCase("S")) {
+            System.out.println("\n--- ALTERAÇÃO DE SENHA ---");
+            System.out.print("Informe seu nome de usuário: ");
+            String nomeUsuario = teclado.nextLine();
+
+            if (usuarios.containsKey(nomeUsuario)) { 
+                Usuario usuarioComum = usuarios.get(nomeUsuario);
+                System.out.print("Informe sua senha atual: ");
+                String senhaAtual = teclado.nextLine();
+                if (usuarioComum.getSenha().equals(senhaAtual)) {
+                    System.out.print("Informe a nova senha: ");
+                    String novaSenha = teclado.nextLine();
+                    usuarioComum.setSenha(novaSenha);
+                    System.out.println("Senha alterada com sucesso!");
+                } else {
+                    System.out.println("Senha atual incorreta!");
+                }
+            } else if (usuarios.containsKey(nomeUsuario)) { // Se for um usuário
+                Usuario usuario = usuarios.get(nomeUsuario);
+                System.out.print("Informe sua senha atual: ");
+                String senhaAtual = teclado.nextLine();
+        
+                if (usuario.getSenha().equals(senhaAtual)) {
+                    System.out.print("Informe a nova senha: ");
+                    String novaSenha = teclado.nextLine();
+                    usuario.setSenha(novaSenha);
+                    System.out.println("Senha alterada com sucesso!");
+                } else {
+                    System.out.println("Senha atual incorreta!");
+
+                }
+            } else {
+                System.out.println("Usuário não encontrado!");
+            }
+        }
+        menuUsuario();
+    }
 }
