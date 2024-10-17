@@ -104,6 +104,122 @@ public class Administrador {
         App.menuAdministrador();
     }
 
+    public static void editarFilmes(ArrayList<Filme> filmes) {
+        if (filmes.isEmpty()) {
+            System.out.println("\nNenhum filme cadastrado.");
+        } else {
+            Scanner teclado = new Scanner(System.in);
+            System.out.println("\n--- FILMES CADASTRADOS ---");
+            for (int i = 0; i < filmes.size(); i++) {
+                Filme filme = filmes.get(i);
+                System.out.println("[" + (i + 1) + "] " + filme.getTitulo() + " (" + filme.getAnoLancamento() + ")");
+            }
+    
+            System.out.print("\nDigite o número do filme que deseja editar: ");
+            int numeroFilme = teclado.nextInt();
+            teclado.nextLine(); 
+    
+            if (numeroFilme > 0 && numeroFilme <= filmes.size()) {
+                Filme filmeParaEditar = filmes.get(numeroFilme - 1);
+                
+                // Editando informações
+                System.out.print("Novo título do filme: ");
+                String novoTitulo = teclado.nextLine();
+                filmeParaEditar.setTitulo(novoTitulo);
+    
+                System.out.print("Nova duração (minutos): ");
+                int novaDuracao = teclado.nextInt();
+                filmeParaEditar.setDuracao(novaDuracao);
+    
+                System.out.print("Novo ano de lançamento: ");
+                int novoAnoLancamento = teclado.nextInt();
+                filmeParaEditar.setAnoLancamento(novoAnoLancamento);
+    
+                System.out.print("Escolha o novo gênero (0-Ação, 1-Comédia, 2-Drama, 3-Fantasia, 4-Terror, 5-Suspense, 6-Romance, 7-Animação): ");
+                int generoEscolhido = teclado.nextInt();
+                Genero novoGenero = Genero.values()[generoEscolhido];
+                filmeParaEditar.setGenero(novoGenero);
+    
+                System.out.println("\nFilme atualizado com sucesso: " + novoTitulo + " (" + novoAnoLancamento + ")");
+            } else {
+                System.out.println("\nNúmero inválido, tente novamente.");
+                editarFilmes(filmes);
+            }
+        }
+        App.menuAdministrador();
+    }    
+
+    public static void editarAtor(ArrayList<Ator> atores) {
+        if (atores.isEmpty()) {
+            System.out.println("\nNenhum ator cadastrado.");
+        } else {
+            Scanner teclado = new Scanner(System.in);
+            System.out.println("\n--- ATORES CADASTRADOS ---");
+            for (int i = 0; i < atores.size(); i++) {
+                Ator ator = atores.get(i);
+                System.out.println("[" + (i + 1) + "] " + ator.getNome() + " (" + ator.getDataNascimento() + ")");
+            }
+    
+            System.out.print("\nDigite o número do ator que deseja editar: ");
+            int numeroAtor = teclado.nextInt();
+            teclado.nextLine(); 
+    
+            if (numeroAtor > 0 && numeroAtor <= atores.size()) {
+                Ator atorParaEditar = atores.get(numeroAtor - 1);
+    
+                System.out.print("Novo nome do ator: ");
+                String novoNome = teclado.nextLine();
+                atorParaEditar.setNome(novoNome);
+    
+                System.out.print("Nova data de nascimento (dd/MM/yyyy): ");
+                String novaDataNascimento = teclado.nextLine();
+                atorParaEditar.setDataNascimento(novaDataNascimento);
+    
+                System.out.println("\nAtor atualizado com sucesso: " + novoNome + " (" + novaDataNascimento + ")");
+            } else {
+                System.out.println("\nNúmero inválido, tente novamente.");
+                editarAtor(atores);
+            }
+        }
+        App.menuAdministrador();
+    }
+    
+    public static void editarDiretor(ArrayList<Diretor> diretores) {
+        if (diretores.isEmpty()) {
+            System.out.println("\nNenhum diretor cadastrado.");
+        } else {
+            Scanner teclado = new Scanner(System.in);
+            System.out.println("\n--- DIRETORES CADASTRADOS ---");
+            for (int i = 0; i < diretores.size(); i++) {
+                Diretor diretor = diretores.get(i);
+                System.out.println("[" + (i + 1) + "] " + diretor.getNome() + " (" + diretor.getDataNascimento() + ")");
+            }
+    
+            System.out.print("\nDigite o número do diretor que deseja editar: ");
+            int numeroDiretor = teclado.nextInt();
+            teclado.nextLine(); // Consumir quebra de linha
+    
+            if (numeroDiretor > 0 && numeroDiretor <= diretores.size()) {
+                Diretor diretorParaEditar = diretores.get(numeroDiretor - 1);
+    
+                // Editando informações
+                System.out.print("Novo nome do diretor: ");
+                String novoNome = teclado.nextLine();
+                diretorParaEditar.setNome(novoNome);
+    
+                System.out.print("Nova data de nascimento (dd/MM/yyyy): ");
+                String novaDataNascimento = teclado.nextLine();
+                diretorParaEditar.setDataNascimento(novaDataNascimento);
+    
+                System.out.println("\nDiretor atualizado com sucesso: " + novoNome + " (" + novaDataNascimento + ")");
+            } else {
+                System.out.println("\nNúmero inválido, tente novamente.");
+                editarDiretor(diretores);
+            }
+        }
+        App.menuAdministrador();
+    }    
+
     public static void removerFilme(ArrayList<Filme> filmes) {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");

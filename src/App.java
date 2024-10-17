@@ -164,8 +164,7 @@ public class App {
                 listarDados();
                 break;
             case 3:
-                //editarDados();
-                Administrador.cadastrarDiretor(diretores);
+                editarDados();
                 break;
             case 4:
                 excluirDados();
@@ -267,6 +266,33 @@ public class App {
                 break;
             case 3:
                 Administrador.listarDiretores(diretores);
+                break;
+            case 4:
+                menuAdministrador();
+                break;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!");
+                menuAdministrador();
+        }
+    }
+
+    public static void editarDados() {
+        System.out.println("\n--- EDITAR DADOS ---");
+        System.out.print("[1] - Editar Filmes\n"
+                + "[2] - Editar Atores\n"
+                + "[3] - Editar Diretores\n"
+                + "[4] - Sair\nRESPOSTA: ");
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+        switch (opcao) {
+            case 1:
+                Administrador.editarFilmes(filmes);
+                break;
+            case 2:
+                Administrador.editarAtor(atores);
+                break;
+            case 3:
+                Administrador.editarDiretor(diretores);
                 break;
             case 4:
                 menuAdministrador();
