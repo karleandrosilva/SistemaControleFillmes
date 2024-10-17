@@ -38,8 +38,8 @@ public class Administrador {
         int generoEscolhido = teclado.nextInt();
         Genero genero = Genero.values()[generoEscolhido];
 
-        System.out.println("Escolha os atores (digite 00 para adicionar um novo ator, -1 para finalizar):");
-        int atorEscolhido = teclado.nextInt();
+        // System.out.println("Escolha os atores (digite 00 para adicionar um novo ator, -1 para finalizar):");
+        // int atorEscolhido = teclado.nextInt();
         Filme novoFilme = new Filme(titulo, duracao, anoLancamento, genero); // Cria uma nova instância do filme com os dados fornecidos
         filmes.add(novoFilme); // Adiciona o filme à lista de filmes
         System.out.println("\nFilme cadastrado com sucesso: " + titulo + " (" + anoLancamento + ")");

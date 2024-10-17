@@ -358,10 +358,43 @@ public class App {
         }
     }
 
-    private static void buscarDados() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public static void buscarDados() {
+        System.out.println("\n-- O QUE DESEJA PESQUISAR? --");
+        System.out.print("[1] - Filme \n"
+        + "[2] - Filme por Genero \n"
+        + "[3] - Filme por Ano \n"
+        + "[4] - Atores \n"
+        + "[5] - Diretores  \n"
+        + "[6] - Sair\nRESPOSTA: "); 
 
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
+        
+        switch (opcao) {
+            case 1:
+                Usuario.buscarFilme(filmes, teclado);
+                break;
+            case 2:
+                Usuario.buscarFilmePorGenero(filmes, teclado);
+                break;
+            case 3:
+                Usuario.buscarFilmePorAno(filmes, teclado);
+                break;
+            case 4:
+                Usuario.buscarAtor(atores, teclado);
+                break;
+            case 5:
+                Usuario.buscarDiretor(diretores, teclado);
+                break;
+            case 6:
+                System.out.println("Saindo da pesquisa...");
+                menuUsuario();
+            default:
+                System.out.println("Opção inválida, tente novamente.");
+                buscarDados();
+        }  
+    }
+    
     public static void Favoritos(){
         System.out.println("\n--- FAVORITOS ---");
         System.out.print("[1] - Adicionar Filme Favorito\n"
@@ -375,44 +408,44 @@ public class App {
                 + "[9] - Remover Diretor Favorito\n"
                 + "[10] - Sair\nRESPOSTA: ");
 
-            int opcao = teclado.nextInt();
-            teclado.nextLine();
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
     
-            switch (opcao) {
-                case 1:
-                    Usuario.adicionarFilmeFavorito(filmes);
-                    break;
-                case 2:
-                    Usuario.adicionarAtorFavorito(atores);
-                    break;
-                case 3:
-                    Usuario.adicionarDiretorFavorito(diretores);
-                    break;
-                case 4:
-                    Usuario.verFilmesFavoritos(filmes);
-                    break;
-                case 5:
-                    Usuario.verAtoresFavoritos(atores);
-                    break;
-                case 6:
-                    Usuario.verDiretoresFavoritos(diretores);
-                    break;
-                case 7:
-                    Usuario.removerFilmeFavorito(filmes);
-                    break;
-                case 8:
-                    Usuario.removerAtorFavorito(atores);
-                    break;
-                case 9:
-                    Usuario.removerDiretorFavorito(diretores);
-                    break;
-                case 10:
-                    menuUsuario();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA!");
-                    menuUsuario();
-            }
+        switch (opcao) {
+            case 1:
+                Usuario.adicionarFilmeFavorito(filmes);
+                break;
+            case 2:
+                Usuario.adicionarAtorFavorito(atores);
+                break;
+            case 3:
+                Usuario.adicionarDiretorFavorito(diretores);
+                break;
+            case 4:
+                Usuario.verFilmesFavoritos(filmes);
+                break;
+            case 5:
+                Usuario.verAtoresFavoritos(atores);
+                break;
+            case 6:
+                Usuario.verDiretoresFavoritos(diretores);
+                break;
+            case 7:
+                Usuario.removerFilmeFavorito(filmes);
+                break;
+            case 8:
+                Usuario.removerAtorFavorito(atores);
+                break;
+            case 9:
+                Usuario.removerDiretorFavorito(diretores);
+                break;
+            case 10:
+                menuUsuario();
+                break;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!");
+                Favoritos();
+        }
     }
 
     public static void editarPerfil() {

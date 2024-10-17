@@ -26,6 +26,90 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public static void buscarFilme(ArrayList<Filme> filmes, Scanner teclado) {
+        System.out.print("Digite o nome do filme: ");
+        String nomeFilme = teclado.nextLine();
+        boolean encontrado = false;
+        for (Filme filme : filmes) {
+            if (filme.getTitulo().equalsIgnoreCase(nomeFilme)) {
+                System.out.println("Filme encontrado: " + filme.getTitulo() + " (" + filme.getAnoLancamento() + ")");
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Filme não encontrado.");
+        }
+        App.menuUsuario();
+    }
+    
+    public static void buscarFilmePorGenero(ArrayList<Filme> filmes, Scanner teclado) {
+        System.out.println("Escolha o gênero (0-Ação, 1-Comédia, 2-Drama, 3-Fantasia, 4-Terror, 5-Suspense, 6-Romance, 7-Animação): ");
+        int generoEscolhido = teclado.nextInt();
+        Genero genero = Genero.values()[generoEscolhido];
+        boolean encontrado = false;
+        for (Filme filme : filmes) {
+            if (filme.getGenero() == genero) {
+                System.out.println("Filme: " + filme.getTitulo() + " (" + filme.getAnoLancamento() + ")");
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum filme encontrado para o gênero selecionado.");
+        }
+        App.menuUsuario();
+    }
+
+    public static void buscarFilmePorAno(ArrayList<Filme> filmes, Scanner teclado) {
+        System.out.print("Digite o ano do filme: ");
+        int ano = teclado.nextInt();
+        boolean encontrado = false;
+        for (Filme filme : filmes) {
+            if (filme.getAnoLancamento() == ano) {
+                System.out.println("Filme: " + filme.getTitulo() + " (" + filme.getAnoLancamento() + ")");
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Nenhum filme encontrado para o ano selecionado.");
+        }
+        App.menuUsuario();
+    }
+
+    public static void buscarAtor(ArrayList<Ator> atores, Scanner teclado) {
+        System.out.print("Digite o nome do ator: ");
+        String nomeAtor = teclado.nextLine();
+        boolean encontrado = false;
+        for (Ator ator : atores) {
+            if (ator.getNome().equalsIgnoreCase(nomeAtor)) {
+                System.out.println("Ator encontrado: " + ator.getNome() + " - (" + ator.getDataNascimento() + ")");
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Ator não encontrado.");
+        }
+        App.menuUsuario();
+    }
+    
+    public static void buscarDiretor(ArrayList<Diretor> diretores, Scanner teclado) {
+        System.out.print("Digite o nome do diretor: ");
+        String nomeDiretor = teclado.nextLine();
+        boolean encontrado = false;
+        for (Diretor diretor : diretores) {
+            if (diretor.getNome().equalsIgnoreCase(nomeDiretor)) {
+                System.out.println("Diretor encontrado: " + diretor.getNome() + " - (" + diretor.getDataNascimento() + ")");
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("Diretor não encontrado.");
+        }
+        App.menuUsuario();
+    }
+
     public static void adicionarFilmeFavorito(ArrayList<Filme> filmes) {
         System.out.println("\n--- FILMES CADASTRADOS ---");
             for (int i = 0; i < filmes.size(); i++) {

@@ -1,4 +1,5 @@
 // Enum Gênero
+
 enum Genero {
     Acao, Comédia, Drama, Fantasia, Terror, Suspense, Romance, Animacao;
 }
